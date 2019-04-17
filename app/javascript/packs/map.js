@@ -7,7 +7,9 @@ const initMapbox = () => {
     mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/navigation-preview-day-v2'
+      style: 'mapbox://styles/mapbox/outdoors-v10',
+      center: [4,51],
+      zoom: 4.5
     });
   }
 };
