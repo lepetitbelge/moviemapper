@@ -9,7 +9,7 @@ const initMapbox = () => {
       container: 'map',
       style: 'mapbox://styles/mapbox/outdoors-v10',
       center: [4,51],
-      zoom: 4.5
+      zoom: 1
     });
   }
 };
