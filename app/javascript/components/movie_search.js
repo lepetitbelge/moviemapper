@@ -1,4 +1,5 @@
 import fetchJsonp from 'fetch-jsonp';
+import { mapBoxMarkers } from '../packs/map';
 
 
 const filmLocations = (cleanQuery) => {
@@ -15,8 +16,7 @@ const filmLocations = (cleanQuery) => {
     json.data.movies[0].filmingLocations.forEach((location) => {
       locationsArray.push(location.location)
     });
-    return locationsArray;
-
+    mapBoxMarkers(locationsArray);
   }).catch(function(ex) {
     console.log('parsing failed', ex);
   })
