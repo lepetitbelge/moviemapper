@@ -1,25 +1,26 @@
-
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1>Search a movie</h1>
-      <h2>explore all its filming locations</h2>
-      <div class="search-bar">
-        <form class="card card-sm">
-          <div class="card-body row no-gutters align-items-center">
-            <!--end of col-->
-            <div class="col">
-              <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="eg: gladiator">
+<div class="vertical-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1 id="page-header">Search a movie 🎬 </h1>
+        <h2>explore its filming locations</h2>
+        <div class="search-bar">
+          <form class="card card-sm">
+            <div class="card-body row no-gutters align-items-center">
+              <!--end of col-->
+              <div class="col">
+                <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="eg: casino royale">
+              </div>
+              <!--end of col-->
+              <div class="col-auto">
+                <button class="btn btn-lg btn-sea-blue" type="submit">Search</button>
+              </div>
+              <!--end of col-->
             </div>
-            <!--end of col-->
-            <div class="col-auto">
-              <button class="btn btn-lg btn-sea-blue" type="submit">Search</button>
-            </div>
-            <!--end of col-->
-          </div>
-        </form>
+          </form>
+        </div>
+        <div id="map", data-markers="<%= @markers.to_json %>", data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
       </div>
-      <div id="map", data-markers="<%= @markers.to_json %>", data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
     </div>
   </div>
 </div>

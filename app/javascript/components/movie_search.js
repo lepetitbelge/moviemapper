@@ -1,22 +1,84 @@
 import fetchJsonp from 'fetch-jsonp';
 import { mapBoxMarkers } from '../packs/map';
 
+function insertAfter(el, referenceNode) {
+    referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+};
+
+const cleanSearchOptions = () => {
+  const searchOptions = document.querySelector('.search-options');
+  if(searchOptions == 'undefined' || searchOptions == null ) {
+    console.log('nothing to be done');
+  } else {
+    $('.search-options').remove();
+  };
+};
+
+const showMovieFilmingLocations = (json, movieIndex = 0) => {
+  let locationsArray = [];
+  if (json.data.movies[movieIndex].filmingLocations != undefined) {
+    json.data.movies[movieIndex].filmingLocations.forEach((location) => {
+      return locationsArray.push(location.location)
+    });
+    mapBoxMarkers(locationsArray);
+    cleanSearchOptions();
+  }
+};
+
+const selectMovie = (json) => {
+  const movieOptions = Array.from(document.querySelectorAll('li'))
+  movieOptions.map((movieOption) => {
+    movieOption.addEventListener('click', (event) => {
+      event.preventDefault();
+      showMovieFilmingLocations(json, movieOption.value);
+    });
+  });
+};
+
+const listMoviePossibilities = (json) => {
+  const searchBar = document.querySelector('.search-bar');
+  const searchOptions = document.createElement('div');
+        searchOptions.classList.add("search-options");
+        searchOptions.innerHTML =
+        `<p>Did you mean?</p>
+        <ul>
+          ${
+            json.data.movies.map(function (movie, index) {
+            if(!movie.title){movie.title = "?"}
+            if(!movie.year){movie.year = "?"}
+            if(!movie.rating){movie.rating = "?"}
+            return `<li value=${index}>
+                    ${movie.title} (${movie.year}) - IMDb <strong>[${movie.rating}/10]</strong> </li>`
+            }).join('')
+          }
+        </ul>`;
+  insertAfter(searchOptions, searchBar);
+  selectMovie(json);
+};
+
+// const movieDescription = () => {
+
+// };
 
 const filmLocations = (cleanQuery) => {
-  const url = `https://www.myapifilms.com/imdb/idIMDB?title=${cleanQuery}&token=996c2225-65cb-46b4-a895-043584a46968&format=json&language=en-us&aka=0&business=0&seasons=0&seasonYear=0&technical=0&filter=3&exactFilter=0&limit=1&forceYear=0&trailers=0&movieTrivia=0&awards=0&moviePhotos=0&movieVideos=0&actors=1&biography=0&actorActress=0&similarMovies=0&adultSearch=0&goofs=0&keyword=0&quotes=0&fullSize=0&companyCredits=0&filmingLocations=2`;
+  const url = `https://www.myapifilms.com/imdb/idIMDB?title=${cleanQuery}&token=996c2225-65cb-46b4-a895-043584a46968&format=json&language=en-us&aka=0&filter=3&limit=5&filmingLocations=2`;
   fetchJsonp(url, {
     jsonpCallback: 'callback',
   })
   .then(function(response) {
     return response.json();
-
   }).then(function(json) {
     console.log('parsed json', json);
-    let locationsArray = []
-    json.data.movies[0].filmingLocations.forEach((location) => {
-      locationsArray.push(location.location)
-    });
-    mapBoxMarkers(locationsArray);
+    // debugger
+    if(json.data.movies.length === 1){
+      showMovieFilmingLocations(json);
+    }
+    else if(json.data.movies.length === 0){
+      return "We're sorry, this search was not possible. Please try again :)"
+    }
+    else if(json.data.movies.length > 1) {
+      listMoviePossibilities(json);
+    }
   }).catch(function(ex) {
     console.log('parsing failed', ex);
   })
@@ -27,7 +89,7 @@ const movieSearch = () => {
   searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const cleanQuery = event.srcElement[0].value.trim().replace(' ','+');
-    // console.log(cleanQuery)
+    cleanSearchOptions();
     filmLocations(cleanQuery);
   });
 }
