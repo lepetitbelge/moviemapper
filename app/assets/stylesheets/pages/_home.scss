@@ -1,10 +1,21 @@
 // Specific CSS for your home-page
+html, body {
+  height:100%; /* important to vertically align the container */
+  margin:0 !important;
+  padding:0 !important;
+}
 #page-header {
   margin-top: 2rem;
 }
 #map {
   width: 100%;
   height: 26rem;
+}
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
 .card {
   border: none;
