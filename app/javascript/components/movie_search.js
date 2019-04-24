@@ -14,7 +14,28 @@ const cleanSearchOptions = () => {
   };
 };
 
-const specifyMovie = (json) => {
+const showMovieFilmingLocations = (json, movieIndex = 0) => {
+  let locationsArray = [];
+  if (json.data.movies[movieIndex.filmingLocations] != undefined) {
+    json.data.movies[movieIndex].filmingLocations.forEach((location) => {
+      return locationsArray.push(location.location)
+    });
+    mapBoxMarkers(locationsArray);
+    cleanSearchOptions();
+  }
+};
+
+const selectMovie = (json) => {
+  const movieOptions = Array.from(document.querySelectorAll('li'))
+  movieOptions.map((movieOption) => {
+    movieOption.addEventListener('click', (event) => {
+      event.preventDefault();
+      showMovieFilmingLocations(json, movieOption.value);
+    });
+  });
+};
+
+const moviePossibilities = (json) => {
   const searchBar = document.querySelector('.search-bar');
   const searchOptions = document.createElement('div');
         searchOptions.classList.add("search-options");
@@ -26,12 +47,13 @@ const specifyMovie = (json) => {
             if(!movie.title){movie.title = "?"}
             if(!movie.year){movie.year = "?"}
             if(!movie.rating){movie.rating = "?"}
-            return `<li id="${index}">
+            return `<li value=${index}>
                     ${movie.title} (${movie.year}) - IMDb <strong>[${movie.rating}/10]</strong> </li>`
             }).join('')
           }
         </ul>`;
   insertAfter(searchOptions, searchBar);
+  selectMovie(json);
 };
 
 // const movieDescription = () => {
@@ -49,18 +71,13 @@ const filmLocations = (cleanQuery) => {
     console.log('parsed json', json);
     // debugger
     if(json.data.movies.length === 1){
-      let locationsArray = []
-      json.data.movies[0].filmingLocations.forEach((location) => {
-        locationsArray.push(location.location)
-      });
-      // movieDescription();
-      mapBoxMarkers(locationsArray);
+      showMovieFilmingLocations(json);
     }
     else if(json.data.movies.length === 0){
       return "We're sorry, this search was not possible. Please try again :)"
     }
     else if(json.data.movies.length > 1) {
-      specifyMovie(json);
+      moviePossibilities(json);
     }
   }).catch(function(ex) {
     console.log('parsing failed', ex);
