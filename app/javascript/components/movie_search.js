@@ -7,7 +7,11 @@ function insertAfter(el, referenceNode) {
 
 const cleanSearchOptions = () => {
   const searchOptions = document.querySelector('.search-options');
-        searchOptions.innerHTML = ""
+  if(searchOptions == 'undefined' || searchOptions == null ) {
+    console.log('nothing to be done');
+  } else {
+    $('.search-options').remove();
+  };
 };
 
 const specifyMovie = (json) => {
@@ -68,7 +72,7 @@ const movieSearch = () => {
   searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const cleanQuery = event.srcElement[0].value.trim().replace(' ','+');
-    cleanSearchOptions();s
+    cleanSearchOptions();
     filmLocations(cleanQuery);
   });
 }
