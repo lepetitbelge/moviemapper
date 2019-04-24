@@ -5,24 +5,21 @@ function insertAfter(el, referenceNode) {
     referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
 }
 
+
 const specifyMovie = (json) => {
-  console.log('Right place');
-  console.log(json);
   const searchBar = document.querySelector('.search-bar');
   const searchOptions = document.createElement('div');
         searchOptions.classList.add("search-options");
         searchOptions.innerHTML =
-        `<ul>
+        `<p>Did you mean?</p>
+        <ul>
           ${
-            json.data.movies.map(function (movie) {
+            json.data.movies.map(function (movie, index) {
             if(!movie.title){movie.title = "?"}
             if(!movie.year){movie.year = "?"}
             if(!movie.rating){movie.rating = "?"}
-            return `<li>
-                    ${movie.title}
-                    (${movie.year})
-                    -
-                    IMDb <strong>[${movie.rating}/10]</strong> </li>`
+            return `<li id="${index}">
+                    ${movie.title} (${movie.year}) - IMDb <strong>[${movie.rating}/10]</strong> </li>`
             }).join('')
           }
         </ul>`;
@@ -67,7 +64,7 @@ const movieSearch = () => {
   searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const cleanQuery = event.srcElement[0].value.trim().replace(' ','+');
-    // console.log(cleanQuery)
+    // cleanSearchOptions();
     filmLocations(cleanQuery);
   });
 }
