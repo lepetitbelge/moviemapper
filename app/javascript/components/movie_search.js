@@ -6,6 +6,7 @@ function insertAfter(el, referenceNode) {
 };
 
 const cleanSearchOptions = () => {
+  console.log('we are in cleansearchoptions')
   const searchOptions = document.querySelector('.search-options');
   if(searchOptions == 'undefined' || searchOptions == null ) {
     console.log('nothing to be done');
@@ -15,8 +16,9 @@ const cleanSearchOptions = () => {
 };
 
 const showMovieFilmingLocations = (json, movieIndex = 0) => {
+  console.log('we are in showMovieFilmingLocations')
   let locationsArray = [];
-  if (json.data.movies[movieIndex.filmingLocations] != undefined) {
+  if (json.data.movies[movieIndex].filmingLocations != undefined) {
     json.data.movies[movieIndex].filmingLocations.forEach((location) => {
       return locationsArray.push(location.location)
     });
@@ -26,6 +28,7 @@ const showMovieFilmingLocations = (json, movieIndex = 0) => {
 };
 
 const selectMovie = (json) => {
+  console.log('we are in selectMovie')
   const movieOptions = Array.from(document.querySelectorAll('li'))
   movieOptions.map((movieOption) => {
     movieOption.addEventListener('click', (event) => {
@@ -35,7 +38,8 @@ const selectMovie = (json) => {
   });
 };
 
-const moviePossibilities = (json) => {
+const listMoviePossibilities = (json) => {
+  console.log('we are in listMoviePossibilities')
   const searchBar = document.querySelector('.search-bar');
   const searchOptions = document.createElement('div');
         searchOptions.classList.add("search-options");
@@ -61,6 +65,7 @@ const moviePossibilities = (json) => {
 // };
 
 const filmLocations = (cleanQuery) => {
+  console.log('we are in filmLocations - the beginning')
   const url = `https://www.myapifilms.com/imdb/idIMDB?title=${cleanQuery}&token=996c2225-65cb-46b4-a895-043584a46968&format=json&language=en-us&aka=0&filter=3&limit=5&filmingLocations=2`;
   fetchJsonp(url, {
     jsonpCallback: 'callback',
@@ -77,7 +82,7 @@ const filmLocations = (cleanQuery) => {
       return "We're sorry, this search was not possible. Please try again :)"
     }
     else if(json.data.movies.length > 1) {
-      moviePossibilities(json);
+      listMoviePossibilities(json);
     }
   }).catch(function(ex) {
     console.log('parsing failed', ex);
@@ -85,6 +90,7 @@ const filmLocations = (cleanQuery) => {
 }
 
 const movieSearch = () => {
+  console.log('we are in movieSearch - the real beginning')
   const searchForm = document.querySelector('.search-bar');
   searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
