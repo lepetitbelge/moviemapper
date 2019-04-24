@@ -3,8 +3,12 @@ import { mapBoxMarkers } from '../packs/map';
 
 function insertAfter(el, referenceNode) {
     referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
-}
+};
 
+const cleanSearchOptions = () => {
+  const searchOptions = document.querySelector('.search-options');
+        searchOptions.innerHTML = ""
+};
 
 const specifyMovie = (json) => {
   const searchBar = document.querySelector('.search-bar');
@@ -64,7 +68,7 @@ const movieSearch = () => {
   searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const cleanQuery = event.srcElement[0].value.trim().replace(' ','+');
-    // cleanSearchOptions();
+    cleanSearchOptions();s
     filmLocations(cleanQuery);
   });
 }
