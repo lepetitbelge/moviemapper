@@ -4,6 +4,9 @@ html, body {
   margin:0 !important;
   padding:0 !important;
 }
+#text {
+  content: "";
+}
 #page-header {
   margin-top: 2rem;
 }
@@ -16,6 +19,10 @@ html, body {
   min-height: 100vh;
   display: flex;
   align-items: center;
+}
+.search-options {
+  width: 100%;
+  background-color: rgb(255,255,255);
 }
 .card {
   border: none;
