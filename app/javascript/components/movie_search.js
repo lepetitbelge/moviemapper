@@ -60,12 +60,26 @@ const listMoviePossibilities = (json) => {
 
 // };
 
+const showLoader = () => {
+  const loaderImage = document.querySelector('#loader-image');
+  loaderImage.style.visibility ='visible';
+  loaderImage.classList.add('loading-image');
+};
+
+const hideLoader = () => {
+  const loaderImage = document.querySelector('#loader-image');
+  loaderImage.style.visibility ='hidden';
+  loaderImage.classList.remove('loading-image');
+};
+
 const filmLocations = (cleanQuery) => {
+  showLoader();
   const url = `https://www.myapifilms.com/imdb/idIMDB?title=${cleanQuery}&token=996c2225-65cb-46b4-a895-043584a46968&format=json&language=en-us&aka=0&filter=3&limit=5&filmingLocations=2`;
   fetchJsonp(url, {
     jsonpCallback: 'callback',
   })
   .then(function(response) {
+    hideLoader();
     return response.json();
   }).then(function(json) {
     console.log('parsed json', json);
