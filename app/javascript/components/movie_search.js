@@ -8,7 +8,6 @@ function insertAfter(el, referenceNode) {
 const cleanSearchOptions = () => {
   const searchOptions = document.querySelector('.search-options');
   if(searchOptions == 'undefined' || searchOptions == null ) {
-    console.log('nothing to be done');
   } else {
     $('.search-options').remove();
   };
