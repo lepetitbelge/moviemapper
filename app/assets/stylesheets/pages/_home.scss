@@ -1,4 +1,7 @@
 // Specific CSS for your home-page
+h1,h2,h3,h4,h5,h6 {
+  font-weight: lighter;
+}
 html, body {
   height:100%; /* important to vertically align the container */
   margin:0 !important;
@@ -62,7 +65,36 @@ html, body {
   background-color: white;
   box-shadow: 1px 1px 1px rgb(230,230,230);
   margin-top: 10px;
+  margin-bottom: 40px;
+  padding: 10px;
   width: 100%;
+  h1 {
+    padding: 5px;
+    margin-bottom: 0px;
+  }
+  p {
+    font-size: 14px;
+    line-height: 28px;
+    margin-top: 0;
+    margin-bottom: 0px;
+  }
+}
+.movie-details {
+  padding-left: 0px;
+  list-style: none;
+  li {
+    text-align: center;
+    text-decoration: underline solid rgba(117, 207, 240,1);
+    display: inline;
+    padding: 5px;
+    font-size: 12px;
+    &:hover {
+      font-weight: bold;
+    }
+  }
+}
+#plot {
+  font-weight: bold;
 }
 .card {
   border: none;

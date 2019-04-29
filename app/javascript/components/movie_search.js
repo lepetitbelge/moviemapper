@@ -71,9 +71,19 @@ const movieDescription = (json, index) => {
   const map = document.querySelector('#map');
   const description = document.createElement('div');
         description.classList.add("movie-description");
-        console.log(json.data.movies[index]);
-        description.innerHTML =
-        `<p>Helloooow</p>`;
+  const movie = json.data.movies[index];
+  description.innerHTML =
+    `<h6>${movie.title}</h6>
+      <ul class="movie-details">
+        <li>${movie.year}</li>
+        <li>${movie.directors[0].name}</li>
+        <li>${movie.languages[0]}</li>
+        <li>${movie.genres[0]}</li>
+        <li>${movie.runtime}</li>
+        <li>${movie.rating}</li>
+      </ul>
+      <p id="plot">PLOT</p>
+      <p>${movie.plot}</p>`;
   insertAfter(description, map);
 };
 
