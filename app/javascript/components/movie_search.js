@@ -8,9 +8,15 @@ function insertAfter(el, referenceNode) {
 const cleanSearchOptions = () => {
   const searchOptions = document.querySelector('.search-options');
   if(searchOptions == 'undefined' || searchOptions == null ) {
-    console.log('nothing to be done');
   } else {
     $('.search-options').remove();
+  };
+};
+const cleanMovieDescription = () => {
+  const description = document.querySelector('.movie-description');
+  if(description == 'undefined' || description == null ) {
+  } else {
+    $('.movie-description').remove();
   };
 };
 
@@ -22,7 +28,12 @@ const showMovieFilmingLocations = (json, movieIndex = 0) => {
     });
     mapBoxMarkers(locationsArray);
     cleanSearchOptions();
-  }
+  } else {
+    // implementfunctionthatshowstherearenomovielocationsavailable
+    cleanSearchOptions();
+  };
+  cleanMovieDescription();
+  movieDescription(json, movieIndex);
 };
 
 const selectMovie = (json) => {
@@ -52,13 +63,29 @@ const listMoviePossibilities = (json) => {
             }).join('')
           }
         </ul>`;
-  insertAfter(searchOptions, searchBar);
+  searchBar.appendChild(searchOptions);
   selectMovie(json);
 };
 
-// const movieDescription = () => {
-
-// };
+const movieDescription = (json, index) => {
+  const map = document.querySelector('#map');
+  const description = document.createElement('div');
+        description.classList.add("movie-description");
+  const movie = json.data.movies[index];
+  description.innerHTML =
+    `<h4>${movie.title}</h4>
+      <ul class="movie-details">
+        <li>${movie.year}</li>
+        <li>${movie.directors[0].name}</li>
+        <li>${movie.languages[0]}</li>
+        <li>${movie.genres[0]}</li>
+        <li>${movie.runtime}</li>
+        <li>${movie.rating}</li>
+      </ul>
+      <h6>PLOT</h6>
+      <p>${movie.plot}</p>`;
+  insertAfter(description, map);
+};
 
 const showLoader = () => {
   const loaderImage = document.querySelector('#loader-image');
@@ -104,6 +131,7 @@ const movieSearch = () => {
     event.preventDefault();
     const cleanQuery = event.srcElement[0].value.trim().replace(' ','+');
     cleanSearchOptions();
+    cleanMovieDescription();
     filmLocations(cleanQuery);
   });
 }
