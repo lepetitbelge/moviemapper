@@ -28,6 +28,7 @@ const showMovieFilmingLocations = (json, movieIndex = 0) => {
     });
     mapBoxMarkers(locationsArray);
     cleanSearchOptions();
+    cleanMovieDescription();
   }
 };
 
@@ -37,6 +38,7 @@ const selectMovie = (json) => {
     movieOption.addEventListener('click', (event) => {
       event.preventDefault();
       showMovieFilmingLocations(json, movieOption.value);
+      movieDescription(json);
     });
   });
 };
@@ -104,7 +106,6 @@ const filmLocations = (cleanQuery) => {
     }
     else if(json.data.movies.length > 1) {
       listMoviePossibilities(json);
-      movieDescription(json);
     }
   }).catch(function(ex) {
     console.log('parsing failed', ex);
@@ -117,6 +118,7 @@ const movieSearch = () => {
     event.preventDefault();
     const cleanQuery = event.srcElement[0].value.trim().replace(' ','+');
     cleanSearchOptions();
+    cleanMovieDescription();
     filmLocations(cleanQuery);
   });
 }
