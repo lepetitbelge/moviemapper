@@ -51,7 +51,8 @@ const listMoviePossibilities = (json) => {
             }).join('')
           }
         </ul>`;
-  insertAfter(searchOptions, searchBar);
+  searchBar.appendChild(searchOptions);
+  // insertAfter(searchOptions, searchBar);
   selectMovie(json);
 };
 

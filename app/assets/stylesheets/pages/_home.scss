@@ -17,9 +17,6 @@ html, body {
   display: flex;
   // align-items: center;
 }
-.search-bar{
-  position: relative;
-}
 .loading-image {
   background-image: url("globe-loader-fast.gif");
   background-position: center;
@@ -33,7 +30,13 @@ html, body {
   z-index: 2;
   opacity: 0.9;
 }
+.search-bar{
+  position: relative;
+}
 .search-options {
+  position: absolute;
+  z-index: 2;
+  opacity: 0.8;
   width: 100%;
   background-color: white;
   padding: 10px 10px 1px 10px;
