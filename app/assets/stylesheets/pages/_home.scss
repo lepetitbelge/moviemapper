@@ -13,6 +13,7 @@ html, body {
 #map {
   width: 100%;
   height: 26rem;
+  visibility: visible;
 }
 .vertical-center {
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
@@ -94,7 +95,7 @@ html, body {
   }
 }
 #plot {
-  font-weight: bold;
+  font-weight: lighter;
 }
 .card {
   border: none;

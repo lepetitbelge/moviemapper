@@ -73,7 +73,7 @@ const movieDescription = (json, index) => {
         description.classList.add("movie-description");
   const movie = json.data.movies[index];
   description.innerHTML =
-    `<h6>${movie.title}</h6>
+    `<h4>${movie.title}</h4>
       <ul class="movie-details">
         <li>${movie.year}</li>
         <li>${movie.directors[0].name}</li>
@@ -82,7 +82,7 @@ const movieDescription = (json, index) => {
         <li>${movie.runtime}</li>
         <li>${movie.rating}</li>
       </ul>
-      <p id="plot">PLOT</p>
+      <h6>PLOT</h6>
       <p>${movie.plot}</p>`;
   insertAfter(description, map);
 };
