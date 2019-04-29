@@ -28,8 +28,12 @@ const showMovieFilmingLocations = (json, movieIndex = 0) => {
     });
     mapBoxMarkers(locationsArray);
     cleanSearchOptions();
-    cleanMovieDescription();
-  }
+  } else {
+    // implementfunctionthatshowstherearenomovielocationsavailable
+    cleanSearchOptions();
+  };
+  cleanMovieDescription();
+  movieDescription(json, movieIndex);
 };
 
 const selectMovie = (json) => {
@@ -38,7 +42,6 @@ const selectMovie = (json) => {
     movieOption.addEventListener('click', (event) => {
       event.preventDefault();
       showMovieFilmingLocations(json, movieOption.value);
-      movieDescription(json);
     });
   });
 };
@@ -64,11 +67,11 @@ const listMoviePossibilities = (json) => {
   selectMovie(json);
 };
 
-const movieDescription = (json) => {
+const movieDescription = (json, index) => {
   const map = document.querySelector('#map');
   const description = document.createElement('div');
         description.classList.add("movie-description");
-        console.log(json)
+        console.log(json.data.movies[index]);
         description.innerHTML =
         `<p>Helloooow</p>`;
   insertAfter(description, map);
