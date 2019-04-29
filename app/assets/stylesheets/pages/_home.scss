@@ -36,7 +36,7 @@ html, body {
 .search-options {
   position: absolute;
   z-index: 2;
-  opacity: 0.8;
+  opacity: 0.9;
   width: 100%;
   background-color: white;
   padding: 10px 10px 1px 10px;
@@ -58,6 +58,11 @@ html, body {
     }
   }
 }
+.movie-description{
+  width: 100%;
+  background-color: white;
+  box-shadow: 1px 1px 1px rgb(230,230,230);
+}
 .card {
   border: none;
   background-color: rgb(244, 244, 244);
@@ -78,7 +83,6 @@ html, body {
 .mapboxgl-popup {
   max-width: 200px;
 }
-
 .mapboxgl-popup-content {
   text-align: center;
   font-family: 'Open Sans', sans-serif;

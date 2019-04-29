@@ -12,6 +12,13 @@ const cleanSearchOptions = () => {
     $('.search-options').remove();
   };
 };
+const cleanMovieDescription = () => {
+  const description = document.querySelector('.movie-description');
+  if(description == 'undefined' || description == null ) {
+  } else {
+    $('.movie-description').remove();
+  };
+};
 
 const showMovieFilmingLocations = (json, movieIndex = 0) => {
   let locationsArray = [];
@@ -52,13 +59,18 @@ const listMoviePossibilities = (json) => {
           }
         </ul>`;
   searchBar.appendChild(searchOptions);
-  // insertAfter(searchOptions, searchBar);
   selectMovie(json);
 };
 
-// const movieDescription = () => {
-
-// };
+const movieDescription = (json) => {
+  const map = document.querySelector('#map');
+  const description = document.createElement('div');
+        description.classList.add("movie-description");
+        console.log(json)
+        description.innerHTML =
+        `<p>Helloooow</p>`;
+  insertAfter(description, map);
+};
 
 const showLoader = () => {
   const loaderImage = document.querySelector('#loader-image');
@@ -92,6 +104,7 @@ const filmLocations = (cleanQuery) => {
     }
     else if(json.data.movies.length > 1) {
       listMoviePossibilities(json);
+      movieDescription(json);
     }
   }).catch(function(ex) {
     console.log('parsing failed', ex);
