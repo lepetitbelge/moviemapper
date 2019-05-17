@@ -136,6 +136,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    rb-readline (0.5.5)
     redis (4.1.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
@@ -215,6 +216,7 @@ DEPENDENCIES
   pry-rails
   puma
   rails (= 5.2.3)
+  rb-readline
   redis
   rspec-rails (~> 3.8)
   sassc-rails
